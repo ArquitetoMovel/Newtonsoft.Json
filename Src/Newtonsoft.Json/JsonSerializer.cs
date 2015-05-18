@@ -56,6 +56,7 @@ namespace Newtonsoft.Json
         internal JsonConverterCollection _converters;
         internal IContractResolver _contractResolver;
         internal ITraceWriter _traceWriter;
+        internal PropertyNameHandling _propertyNameHandling;
         internal SerializationBinder _binder;
         internal StreamingContext _context;
         private IReferenceResolver _referenceResolver;
@@ -151,9 +152,18 @@ namespace Newtonsoft.Json
         }
 
         /// <summary>
-        /// Gets or sets how object references are preserved by the serializer.
+        /// Get or set Property name policy to serialize
         /// </summary>
-        public virtual PreserveReferencesHandling PreserveReferencesHandling
+        public virtual PropertyNameHandling PropertyNameHandling
+        {
+            get { return _propertyNameHandling;  }
+            set { _propertyNameHandling = value; }
+        }
+
+            /// <summary>
+            /// Gets or sets how object references are preserved by the serializer.
+            /// </summary>
+            public virtual PreserveReferencesHandling PreserveReferencesHandling
         {
             get { return _preserveReferencesHandling; }
             set
@@ -447,6 +457,7 @@ namespace Newtonsoft.Json
 
             _culture = JsonSerializerSettings.DefaultCulture;
             _contractResolver = DefaultContractResolver.Instance;
+            _propertyNameHandling = PropertyNameHandling.Default;
         }
 
         /// <summary>
@@ -553,6 +564,11 @@ namespace Newtonsoft.Json
                 serializer.Context = settings.Context;
             if (settings._checkAdditionalContent != null)
                 serializer._checkAdditionalContent = settings._checkAdditionalContent;
+
+            if (settings._propertyNameHandling != null)
+            {
+                serializer._propertyNameHandling = settings.PropertyNameHandling;
+            }
 
             if (settings.Error != null)
                 serializer.Error += settings.Error;

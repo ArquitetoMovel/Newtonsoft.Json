@@ -47,6 +47,7 @@ namespace Newtonsoft.Json
         internal const TypeNameHandling DefaultTypeNameHandling = TypeNameHandling.None;
         internal const MetadataPropertyHandling DefaultMetadataPropertyHandling = MetadataPropertyHandling.Default;
         internal const FormatterAssemblyStyle DefaultTypeNameAssemblyFormat = FormatterAssemblyStyle.Simple;
+        internal const PropertyNameHandling DefaultPropertyNameHandling =  PropertyNameHandling.Default;
         internal static readonly StreamingContext DefaultContext;
 
         internal const Formatting DefaultFormatting = Formatting.None;
@@ -85,6 +86,7 @@ namespace Newtonsoft.Json
         internal ConstructorHandling? _constructorHandling;
         internal TypeNameHandling? _typeNameHandling;
         internal MetadataPropertyHandling? _metadataPropertyHandling;
+        internal PropertyNameHandling? _propertyNameHandling;
 
         /// <summary>
         /// Gets or sets how reference loops (e.g. a class referencing itself) is handled.
@@ -114,6 +116,15 @@ namespace Newtonsoft.Json
         {
             get { return _objectCreationHandling ?? DefaultObjectCreationHandling; }
             set { _objectCreationHandling = value; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public PropertyNameHandling PropertyNameHandling
+        {
+            get { return _propertyNameHandling ?? DefaultPropertyNameHandling; }
+            set { _propertyNameHandling = value; }
         }
 
         /// <summary>
